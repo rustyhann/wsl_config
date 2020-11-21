@@ -34,7 +34,7 @@ Process {
         
         New-ItemProperty -Force `
             -Path "HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Fonts" `
-            -Name $name
+            -Name $name `
             -Value $font.Name `
             -PropertyType "String"
     }
