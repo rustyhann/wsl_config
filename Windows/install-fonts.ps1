@@ -6,7 +6,7 @@
     Copies the provided fonts into C:\Windows\Fonts and sets the appropriate
     registery keys in HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Fonts.
 .EXAMPLE
-    C:\PS> .\install.ps1
+    C:\PS> .\install-fonts.ps1
     Installs all the fonts located in the Fonts folder.
 .LINK
     https://github.com/powerline/fonts.git
