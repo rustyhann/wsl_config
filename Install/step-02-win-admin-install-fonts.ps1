@@ -12,6 +12,7 @@
     https://github.com/powerline/fonts.git
     https://github.com/romkatv/dotfiles-public.git
     https://4sysops.com/archives/install-fonts-with-a-powershell-script
+    https://www.ivaylopavlov.com/setting-up-windows-terminal-wsl-and-oh-my-zsh/#.X7jvqrNMHg7
 #>
 [CmdletBinding()]
 param()
@@ -21,16 +22,19 @@ Begin {
 }
 
 Process {
-    $fonts = Get-ChildItem ".\Fonts" -Include "*.ttf", "*.otf" -Recurse | `
+    Write-Verbose "Getting Fonts from Local Font Folder"
+    $fonts = Get-ChildItem "..\Fonts" -Include "*.ttf", "*.otf" -Recurse | `
         Select-Object -Property Name, FullName, Extension
 
+    Write-Verbose "Installing Fonts:"
     ForEach ($font in $fonts){
+        If ($font.Extension -eq '.ttf') { $name = "$($font.Name) (TrueType)" }        
+        IF ($font.Extension -eq '.otf') { $name = "$($font.Name) (OpenType)" }
+
+        Write-Verbose "`t$name"
         Copy-Item -Force `
             -Path $font.FullName `
             -Destination "C:\Windows\Fonts\$($font.Name)" `
-
-        If ($font.Extension -eq '.ttf') { $name = "$($font.Name) (TrueType)" }        
-        IF ($font.Extension -eq '.otf') { $name = "$($font.Name) (OpenType)" }
         
         New-ItemProperty -Force `
             -Path "HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Fonts" `
@@ -39,4 +43,3 @@ Process {
             -PropertyType "String"
     }
 }
-
