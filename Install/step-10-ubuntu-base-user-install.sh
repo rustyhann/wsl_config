@@ -2,9 +2,6 @@
 # https://github.com/aristocratos/bashtop#installation
 # https://github.com/sharkdp/bat
 
-git clone --depth=1 https://github.com/romkatv/powerlevel10k.git $ZSH_CUSTOM/themes/powerlevel10k
-sed -i 's/robbyrussell/powerlevel10k\/powerlevel10k/' ~/.zshrc
-
 # Answers
 # y y y y 2 1 4 3 2 1 3 2 3 4 2 2 1 n 1 y 
 
@@ -12,12 +9,12 @@ mkdir ~/Deb
 mkdir ~/Repo
 
 # ZSH Functions
-mv ../ZshFunctions ~/
+cp -r ../ZshFunctions ~/
 chmod 755 ~/ZshFunctions
 echo '' >> ~/.zshrc
 echo '# Functions' >> ~/.zshrc
 echo 'fpath+=~/ZshFunctions' >> ~/.zshrc
-echo 'autoload gitlog' >> ~/.zshrc
+echo 'autoload glog' >> ~/.zshrc
 source ~/.zshrc
 
 cd ~/
@@ -47,10 +44,7 @@ sudo apt install -y bat
 echo 'alias bat="/usr/bin/batcat"' >> ~/.zshrc
 source ~/.zshrc
 
-# My IP
-echo 'alias myip="curl http://ipecho.net/plain; echo"' >> ~/.zshrc
-source ~/.zshrc
-
 # Alias
 echo 'alias myip="curl http://ipecho.net/plain; echo"' >> ~/.zshrc
 echo 'alias distro="cat /etc/*-release"' >> ~/.zshrc
+source ~/.zshrc
