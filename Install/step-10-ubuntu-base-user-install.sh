@@ -15,19 +15,16 @@ echo '' >> ~/.zshrc
 echo '# Functions' >> ~/.zshrc
 echo 'fpath+=~/ZshFunctions' >> ~/.zshrc
 echo 'autoload glog' >> ~/.zshrc
-source ~/.zshrc
-
-cd ~/
 
 # LSD -> LSDeluxe
-wget https://github.com/Peltoche/lsd/releases/download/0.18.0/lsd_0.18.0_amd64.deb
-sudo dpkg -i lsd_0.18.0_amd64.deb
+wget https://github.com/Peltoche/lsd/releases/download/0.18.0/lsd_0.18.0_amd64.deb --directory ~/
+sudo dpkg -i ~/lsd_0.18.0_amd64.deb
 echo '' >> ~/.zshrc
 echo '# Alias' >> ~/.zshrc
 echo 'alias ls="lsd --long --group-dirs first"' >> ~/.zshrc
 echo 'alias tree="lsd --tree"' >> ~/.zshrc
 source ~/.zshrc
-mv lsd_0.18.0_amd64.deb ~/Deb
+mv ~/lsd_0.18.0_amd64.deb ~/Deb
 
 # BashTop
 cd ~/Repo
