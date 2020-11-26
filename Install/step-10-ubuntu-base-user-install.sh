@@ -27,16 +27,12 @@ source ~/.zshrc
 mv ~/lsd_0.18.0_amd64.deb ~/Deb
 
 # BashTop
-cd ~/Repo
-git clone 'https://github.com/aristocratos/bashtop.git' 'aristocratos/bashtop'
-cd aristocratos/bashtop/DEB
-sudo ./build
-cd ~/
+git clone 'https://github.com/aristocratos/bashtop.git' ~/Repo/aristocratos/bashtop
+cd ~/Repo/aristocratos/bashtop/DEB `&`& sudo ./build
 echo 'alias top="bashtop"' >> ~/.zshrc
 source ~/.zshrc
 
 # Bat
-cd ~/
 sudo apt install -y bat
 echo 'alias bat="/usr/bin/batcat"' >> ~/.zshrc
 source ~/.zshrc

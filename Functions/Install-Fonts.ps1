@@ -14,32 +14,30 @@
     https://4sysops.com/archives/install-fonts-with-a-powershell-script
     https://www.ivaylopavlov.com/setting-up-windows-terminal-wsl-and-oh-my-zsh/#.X7jvqrNMHg7
 #>
-[CmdletBinding()]
-param()
+Function Install-Fonts {
+    [CmdletBinding()]
+    param()
 
-Begin {
-    $ErrorActionPreference = 'Stop'
-}
+    Begin {
+        $ErrorActionPreference = 'Stop'
+    }
 
-Process {
-    Write-Verbose "Getting Fonts from Local Font Folder"
-    $fonts = Get-ChildItem "..\Fonts" -Include "*.ttf", "*.otf" -Recurse | `
+    Process {
+        Write-Verbose "Getting Fonts from Local Font Folder"
+    $fonts = Get-ChildItem ".\Fonts\" -Include "*.ttf", "*.otf" -Recurse | `
         Select-Object -Property Name, FullName, Extension
 
     Write-Verbose "Installing Fonts:"
     ForEach ($font in $fonts){
         If ($font.Extension -eq '.ttf') { $name = "$($font.Name) (TrueType)" }        
         IF ($font.Extension -eq '.otf') { $name = "$($font.Name) (OpenType)" }
-
         Write-Verbose "`t$name"
-        Copy-Item -Force `
-            -Path $font.FullName `
-            -Destination "C:\Windows\Fonts\$($font.Name)" `
         
-        New-ItemProperty -Force `
-            -Path "HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Fonts" `
-            -Name $name `
-            -Value $font.Name `
-            -PropertyType "String"
+        $command = "Copy-Item -Force -Path $font.FullName -Destination `"C:\Windows\Fonts\$($font.Name)`""
+        Start-Process powershell -Verb runAs -ArgumentList $command -Wait
+        
+        $command = "New-ItemProperty -Force -Path 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Fonts' -Name $name -Value $font.Name -PropertyType 'String'"
+        Start-Process powershell -Verb runAs -ArgumentList $command -Wait
+    }
     }
 }
