@@ -19,11 +19,22 @@ param()
 
 Begin {
     $ErrorActionPreference = 'Stop'
+
     . .\Functions\Install-Wsl.ps1
     . .\Functions\Install-Fonts.ps1
+    . .\Functions\Install-Ubuntu.ps1
+    . .\Functions\Update-Ubuntu.ps1
+    . .\Functions\Copy-Ubuntu.ps1
+    . .\Functions\Set-UbuntuTerminal.ps1
+    . .\Functions\Install-WindowsTerminal.ps1
 }
 
 Process {
     #Install-Wsl
     #Install-Fonts
+    Install-Ubuntu    
+    Update-Ubuntu
+    Copy-Ubuntu
+    Set-UbuntuTerminal
+    Install-WindowsTerminal
 }
