@@ -1,0 +1,10 @@
+        "defaults":
+        {
+            "backgroundImage": "--imagePath--",
+            "backgroundImageStretchMode": "uniformToFill",
+            "backgroundImageOpacity": 0.3,
+            "colorScheme": "Gruvbox-Black",
+            "fontFace" : "MesloLGS NF",
+            "fontSize" : 10,
+            "hidden": false
+        },
