@@ -20,6 +20,7 @@ param()
 Begin {
     $ErrorActionPreference = 'Stop'
 
+    . .\Functions\Set-LineEndings.ps1
     . .\Functions\Install-Wsl.ps1
     . .\Functions\Install-Fonts.ps1
     . .\Functions\Install-Ubuntu.ps1
@@ -30,9 +31,10 @@ Begin {
 }
 
 Process {
-    #Install-Wsl
-    #Install-Fonts
-    Install-Ubuntu    
+    Set-LineEndings
+    # Install-Wsl
+    # Install-Fonts
+    Install-Ubuntu
     Update-Ubuntu
     Copy-Ubuntu
     Set-UbuntuTerminal
