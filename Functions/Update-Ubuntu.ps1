@@ -13,11 +13,11 @@
 Function Update-Ubuntu {
     [CmdletBinding()]
     param()
-    
+
     Begin {
         $ErrorActionPreference = 'Stop'
     }
-    
+
     Process {
         wsl --distribution Ubuntu-20.04 --user root -- cp ./Shell/update-ubuntu.sh ~/update-ubuntu.sh
         wsl --distribution Ubuntu-20.04 --user root -- ~/update-ubuntu.sh

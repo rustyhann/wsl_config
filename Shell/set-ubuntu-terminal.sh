@@ -9,7 +9,7 @@ mkdir ~/Scripts
 mkdir ~/Scripts/Terminal
 
 # Install zsh
-sudo apt-get install -y zsh    
+sudo apt-get install -y zsh
 curl -fsSL 'https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh' \
     --output ~/Scripts/Terminal/oh-my-zsh.install.sh
 chmod +x ~/Scripts/Terminal/oh-my-zsh.install.sh
@@ -53,4 +53,4 @@ git clone --depth=1 https://github.com/romkatv/powerlevel10k.git \
 sed -i 's@robbyrussell@powerlevel10k/powerlevel10k@' ~/.zshrc
 
 # Answers
-# y y y y 2 1 4 3 2 1 3 2 3 4 2 2 1 n 1 y 
+# y y y y 2 1 4 3 2 1 3 2 3 4 2 2 1 n 1 y
