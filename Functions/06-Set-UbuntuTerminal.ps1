@@ -10,7 +10,7 @@
     https://docs.microsoft.com/en-us/windows/wsl/install-manual
     https://www.leeholmes.com/blog/2015/10/30/launching-modern-applications-from-the-command-line/
 #>
-Function Update-Ubuntu {
+Function Set-UbuntuTerminal {
     [CmdletBinding()]
     param()
     
@@ -19,7 +19,12 @@ Function Update-Ubuntu {
     }
     
     Process {
-        wsl --distribution Ubuntu-20.04 --user root -- cp ./Shell/update-ubuntu.sh ~/update-ubuntu.sh
-        wsl --distribution Ubuntu-20.04 --user root -- ~/update-ubuntu.sh
+        Write-Host "Set-UbuntuTerminal: Copying shell script ... " -NoNewLine
+        wsl --distribution Ubuntu-Base -- cp ./Shell/set-ubuntu-terminal.sh ~/set-ubuntu-terminal.sh
+        Write-Host "Complete"
+
+        Write-Host "Set-UbuntuTerminal: Running shell script ... " -NoNewLine
+        wsl --distribution Ubuntu-Base -- ~/set-ubuntu-terminal.sh
+        Write-Host "Complete"
     }
 }

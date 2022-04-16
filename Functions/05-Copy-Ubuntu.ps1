@@ -18,7 +18,7 @@ Function Copy-Ubuntu {
     Begin {
         $ErrorActionPreference = 'Stop'
 
-        If ($false -eq (Test-Path -Path '~\WSL\')){
+        If ($false -eq (Test-Path -Path '~\WSL\')) {
             New-Item -Path "$HOME\WSL\" -ItemType Directory
         }
             
@@ -26,30 +26,33 @@ Function Copy-Ubuntu {
     }
 
     Process {
-        Write-Verbose "Exporting Ubuntu-20.04"
-        wsl --export 'Ubuntu-20.04' 'ubuntu2004.tar'
+        Write-Host "Copy-Ubuntu: Exporting Ubuntu as ubuntu.tar ... " -NoNewLine
+        wsl --export 'Ubuntu' 'ubuntu.tar'
+        Write-Host "Complete"
         
-        Write-Verbose "Importing Ubuntu-20.04 as Ubuntu-20.04-Base"
-        wsl --import 'Ubuntu-20.04-Base' '.\Ubuntu-20.04-Base' 'ubuntu2004.tar'
+        Write-Host "Copy-Ubuntu: Importing Ubuntu as Ubuntu-Base ... " -NoNewLine
+        wsl --import 'Ubuntu-Base' '.\Ubuntu-Base' 'ubuntu.tar'
+        Write-Host "Complete"
 
-        Write-Verbose "Removing ubuntu2004.tar"
-        Remove-Item .\ubuntu2004.tar
+        Write-Host "Copy-Ubuntu: Removing ubuntu.tar ... " -NoNewLine
+        Remove-Item .\ubuntu.tar
+        Write-Host "Complete"
 
-        Write-Verbose "Getting WSL Registry Keys"
+        Write-Host "Copy-Ubuntu: Getting WSL Registry Keys ... " -NoNewLine
         $key = 'HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Lxss'
-        $existingIds = Get-ChildItem -Path "Registry::$key" | `
-            Select-Object -ExpandProperty 'Name'
+        $existingIds = Get-ChildItem -Path "Registry::$key" | Select-Object -ExpandProperty 'Name'
+        Write-Host "Complete"
         
-        Write-Verbose "Setting Default User to 1000 for:"
-        ForEach ($id in $existingIds){
+        ForEach ($id in $existingIds) {
             $property = Get-ItemProperty -Path "Registry::$id"    
             
-            If ($property.DefaultUid -ne "1000"){
-                Write-Verbose "`t$($propery.DistributionName)"
+            If ($property.DefaultUid -ne "1000") {
+                Write-Host "Copy-Ubuntu: Setting Default User to 1000 for $($propery.DistributionName) ... " -NoNewLine
                 Set-ItemProperty -Path "Registry::$id" `
                     -Name "DefaultUid" `
                     -Value "1000" `
-                    -Type "DWord"                
+                    -Type "DWord"         
+                Write-Host "Complete"
             }
         }
     }

@@ -1,7 +1,6 @@
 <#
 .SYNOPSIS
-    Installs the provided fonts. These fonts support PowerLevel10k in Windows
-    Subsystem for Linux.
+    Installs WSL, a base Ubuntu image, and a custom Ubuntu image.
 .DESCRIPTION
     Copies the provided fonts into C:\Windows\Fonts and sets the appropriate
     registery keys in HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Fonts.
@@ -20,18 +19,18 @@ param()
 Begin {
     $ErrorActionPreference = 'Stop'
 
-    . .\Functions\Install-Wsl.ps1
-    . .\Functions\Install-Fonts.ps1
-    . .\Functions\Install-Ubuntu.ps1
-    . .\Functions\Update-Ubuntu.ps1
-    . .\Functions\Copy-Ubuntu.ps1
-    . .\Functions\Set-UbuntuTerminal.ps1
-    . .\Functions\Install-WindowsTerminal.ps1
+    . .\Functions\01-Install-Fonts.ps1
+    . .\Functions\02-Install-Wsl.ps1    
+    . .\Functions\03-Install-Ubuntu.ps1
+    . .\Functions\04-Update-Ubuntu.ps1
+    . .\Functions\05-Copy-Ubuntu.ps1
+    . .\Functions\06-Set-UbuntuTerminal.ps1
+    . .\Functions\07-Install-WindowsTerminal.ps1
 }
 
 Process {
-    #Install-Wsl
-    #Install-Fonts
+    Install-Fonts
+    Install-Wsl    
     Install-Ubuntu    
     Update-Ubuntu
     Copy-Ubuntu

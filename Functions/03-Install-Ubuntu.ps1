@@ -27,25 +27,28 @@ Function Install-Ubuntu {
     }
 
     Process {
-        Write-Verbose "Downloading Ubuntu-20.04"
+        Write-Host "Install-Ubuntu: Downloading Ubuntu ... " -NoNewline
         Invoke-WebRequest -Uri 'https://aka.ms/wslubuntu2004' `
             -OutFile '.\wslubuntu2004.appx' `
             -UseBasicParsing
+        Write-Host "Complete"
 
-        Write-Verbose "Adding Ubuntu AppxPackage"
+        Write-Host "Install-Ubuntu: Adding Ubuntu AppxPackage ... " -NoNewLine
         Add-AppxPackage '.\wslubuntu2004.appx'
+        Write-Host "Complete"
 
-        Write-Verbose "Removing Ubuntu AppxPackage Download"
+        Write-Host "Install-Ubuntu: Removing Ubuntu AppxPackage Download ... " -NoNewLine
         Remove-Item '.\wslubuntu2004.appx'
+        Write-Host "Complete"
 
-        Write-Verbose "Launching Ubuntu"
+        Write-Host "Install-Ubuntu: Launching Ubuntu ... " -NoNewLine
         $package = Get-AppxPackage | Where-Object { $_.Name -match 'Ubuntu' }
         $manifest = (Get-AppxPackageManifest -Package $package)    
         $appId = $manifest.Package.Applications.Application.Id
         $shell = "shell:AppsFolder\$($package.PackageFamilyName)!$appId"
         Start-Process -FilePath 'explorer.exe' -ArgumentList $shell -Wait
-
-        Wait-Process -Name "ubuntu2004" -ErrorAction SilentlyContinue
+        Wait-Process -Name "ubuntu" -ErrorAction SilentlyContinue
+        Write-Host "Complete"
     }
 
     End {
